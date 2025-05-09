@@ -10,27 +10,43 @@ const calendrierDuCrayon = {
     mai: 2, /* il y a 8 tirets (2 étages) + GOMME A 1 ETAGE (3 tirets) */
     juin: 1, /* il y a 4 tirets (1 étages) + GOMME A 1 ETAGE (3 tirets) */
 };
-const selectMonth = document.querySelector("#selectMonth");
+// const selectMonth = document.querySelector("#selectMonth");
 let dashes = "";
 
-function drawMyPen(month) {
-    let pencilBody = document.createElement("div");
-    let eraser = document.createElement("div");
+function drawMyPenTip() { /* je dessine la pointe du crayon */
+    console.log(" /\\");
+    console.log("/__\\");
+}
+// drawMyPenTip();
 
-    pencilBody.classList.add("pencilBody");
-    eraser.classList.add("eraser");
-
-    for (let i = 0; i < 10; i++) {
+function drawMyPenBody(month) {
+    const floor = calendrierDuCrayon[month]; /* je définis le nombre d'étages correspondant à la valeur du mois */
+    
+    dashes = ""; /* j'initialise les tirets en tant que chaîne de caractères vide */
+    for (let i = 0; i < floor; i++) { /* je lance une boucle dans laquelle on rajoute un bloc de 4 tirets à dashes tant que c'est inférieur au nombre d'étages, et qui va à la ligne à chaque fois */
         dashes += "||||\n";
     }
-      
     console.log(dashes);
+
+}
+// drawMyPenBody("septembre");
+
+function drawMyEraser(month) {
+    if (month === "mars" || month === "avril" || month === "mai" ||month === "juin") {
+        console.log("|__|");
+        console.log("|__|");
+    } else {
+        console.log("|__|");
+        console.log("|  |");
+        console.log("|__|");
+    }
+}
+// drawMyEraser("septembre");
+
+function drawMyPen(month) {
+    drawMyPenTip();
+    drawMyPenBody(month);
+    drawMyEraser(month)
 }
 
-drawMyPen(selectMonth);
-
-function changeMonth(month) {
-    calendrierDuCrayon.addEventListener("change", () => {
-        drawMyPen(month);
-    })
-}
+drawMyPen("juin");
